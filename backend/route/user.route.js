@@ -1,18 +1,28 @@
-import { userModel } from "../model/user.schema";
+const express=require('express');
+const userRouter=express.Router()
 
-export const register = async (req, res) => {
-    const { userName, email, Password } = req.body;
-    const user = await userModel.findOne({ email });
-    if (user) {
-      return res.json({ message: "user already exist" });
-    }
-    const hashpassword = await bcrypt.hash(Password, 10);
-    const newUser = new User({
-      userName,
-      email,
-      Password: hashpassword,
-    });
-  
-    await newUser.save();
-    return res.json({ status: true, message: "record registerd" });
-  };
+userRouter.post('/registration',async()=>{
+const {userName,email,Password}=req.body;
+  try {
+    bcrypt.hash(Password, 10, function(err, hash) {
+        // Store hash in your password DB.
+        if(err){
+            res.status(500).send({"msg":'something is wrong'})
+        }else{
+            const RegisterUser=new userModel({userName,email,Password:hash})
+            RegisterUser.save()
+          res.status(200).send({'message':'You are login!', user:RegisterUser})
+        }
+
+    })
+  } catch (error) {
+    res.status(400).send({'message':'user is not register!'})
+  }
+
+})
+
+userRouter.get('/login',async()=>{
+
+})
+
+module.exports={userRouter}
