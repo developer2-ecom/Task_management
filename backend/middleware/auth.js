@@ -1,10 +1,10 @@
-const jwt=require('jsonwebtoken')
+const jwt=require('jsonwebtoken');
+const { blacklist } = require('./blacklist');
 const auth=(req,res,next)=>{
 const token=req.headers.authorization?.split('')
 
 if(token){
-
-    if(blacklist.includes(token)){
+  if(blacklist.includes(token)){
   res.status({'message':'please login again'})
     }
     jwt.verify(token, 'shhhhh', function(err, decoded) {

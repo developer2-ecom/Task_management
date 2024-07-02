@@ -8,13 +8,13 @@ const { connection } = require('mongoose')
 APP.use=(express.json())
 
 
-APP.listen(process.env.PORT,async()=>{
+APP.listen(process.env.port,async()=>{
     try {
       await connection
-        console.log(`running on port ${process.env.PORT}`)
+        console.log(`running on port ${process.env.port}`)
     } catch (error) {
         console.log('Something wrong')
     }
 })
-// App.use()
+
 
