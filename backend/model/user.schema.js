@@ -1,12 +1,9 @@
 const mongoose= require('mongoose')
-const  UserSchema=mongoose.Schema({
+const  UserSchema=mongoose.connect({
     userName:String,
     email:String,
     Password:String,
-   
 
-},{
-    versionKey:false
 })
 
 const userModel=mongoose.model("user",UserSchema)

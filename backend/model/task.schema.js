@@ -15,8 +15,6 @@ const taskSchema = mongoose.Schema({
     enum: ['To Do', 'In Progress', 'Completed'],
     default: 'To Do',
   },
-},{
-  versionKey:false
 });
 
 const Task = mongoose.model('Task', taskSchema);
