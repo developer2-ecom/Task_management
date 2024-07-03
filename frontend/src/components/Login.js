@@ -30,6 +30,7 @@ function Login() {
 
   return (
     <>
+    <div className="outer">
       <div className="LoginWrapper" id="login" >
         <div>
           <h2 style={{color:"white"}}>Login</h2>
@@ -59,14 +60,14 @@ function Login() {
             <button type="submit" className="">
               Login
             </button>
-            <Link to="/forgotPassword">Forgot password?</Link>
+            {/* <Link to="/forgotPassword">Forgot password?</Link> */}
             <p>
               Don't have an Account?<Link to="/register">Register here</Link>
             </p>
           </form>
         </div>
       </div>
-
+      </div>
         </>
   );
 }
