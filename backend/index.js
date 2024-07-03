@@ -1,13 +1,13 @@
-// require("dotenv").config();
+require("dotenv").config();
 const express=require("express")
 const { connection } = require('./db');
 const APP=express()
-// const cors=require("cors")
+const cors=require("cors")
 const { userRouter } = require("./route/user.route");
 const { taskRoute } = require("./route/task.route");
 const { auth } = require("./middleware/auth");
 
-// APP.use(cors())
+APP.use(cors())
 APP.use(express.json())
 APP.use(userRouter)
 APP.use(taskRoute)

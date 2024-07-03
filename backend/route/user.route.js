@@ -54,18 +54,18 @@ userRouter.post('/registration',async(req,res)=>{
 
     })
 
-    // userRouter.get('/logout',async(req,res)=>{
-    //   const token=req.headers.authorization?.split(" ")[1]
-    //   try {
-    //     if(token){
-    //       blacklist.push(token)
-    //       res.status(200).json({message:"you are logOut!"})
-    //     }
-    //   } catch (error) {
+    userRouter.get('/logout',async(req,res)=>{
+      const token=req.headers.authorization?.split(" ")[1]
+      try {
+        if(token){
+          blacklist.push(token)
+          res.status(200).json({message:"you are logOut!"})
+        }
+      } catch (error) {
 
-    //     res.status(400).json({message:error})
-    //   }
+        res.status(400).json({message:error})
+      }
 
-    // })
+    })
     
     module.exports={userRouter}
