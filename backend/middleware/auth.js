@@ -7,8 +7,9 @@ if(token){
   if(blacklist.includes(token)){
   res.status(401).json({message:'please login again'})
     }
-    jwt.verify(token, 'shhhhh', (err, decoded)=> {
+    jwt.verify(token, process.env.secreatKey, (err, decoded)=> {
         if(decoded){
+          req.user=decoded
           next()
         }else{
         return  res.status(403).send(err)

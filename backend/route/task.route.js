@@ -3,10 +3,13 @@ const { Task } = require('../model/task.schema');
 const taskRoute=express.Router();
 
 taskRoute.post('/loginUserTask',async(req,res)=>{
-    const {title, description,status}=req.body;
+    const {title, description,status,userId}=req.body;
     try {
-        const loginUserTask= new Task({title,description,status})
+        const userId = req.user.userId; 
+        console.log(userId,"userid....")
+        const loginUserTask= new Task({title,description,status,userId})
         await loginUserTask.save()
+        console.log(loginUserTask)
         res.status(200).json({message:'Task is Created!',loginUserTask:loginUserTask})
     } catch (error) {
         res.status(200).json({message:error})
@@ -19,7 +22,9 @@ taskRoute.post('/loginUserTask',async(req,res)=>{
 taskRoute.get('/taskDisplay',async(req,res)=>{
 
     try {
-       const  loginUserTask= await Task.find()
+        const userId = req.user.userId; 
+       const  loginUserTask= await Task.find({userId})
+    //    console.log(userId)
        res.status(200).json({task: loginUserTask})
     } catch (error) {
         res.status(401).json({error:error})

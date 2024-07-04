@@ -35,7 +35,8 @@ userRouter.post('/registration',async(req,res)=>{
         if(user){
           bcrypt.compare(Password,user.Password,(error,result)=>{
             if(result){
-              const token=jwt.sign({userId:user.id},process.env.secreatKey)
+              const token=jwt.sign({userId:user._id},process.env.secreatKey)
+              console
              res.status(200).json({"message":"you are Login !",token:token,user:user})
             }else{
               res.status(400).json({message: 'invalid Credintial'})
