@@ -9,14 +9,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const Home = () => {
-  console.log(document.cookie);
   const { isAuthenticated, currentUser, setCurrentUser, logout, login } =
     useContext(AuthContext);
   const [task, setTask] = useState({ title: "", description: "", status: "" });
   const [error, setError] = useState("");
   const [list, setToList] = useState([]);
-
-  console.log("taskhbd", task);
   axios.defaults.withCredentials = true;
 
   let token = "";
@@ -26,37 +23,8 @@ const Home = () => {
       : "";
   });
 
-  useEffect((task) => {
-    console.log(list);
+  useEffect(() => {
     if (list.length !== 0) {
-      const fetchData = async (task) => {
-        try {
-          console.log(task);
-          await axios
-            .post(
-              `http://localhost:3001/loginUserTask`,
-              {
-                title: task.title,
-                description: task.description,
-                status: task.status,
-                email: currentUser.email,
-              }
-            )
-            .then((res) => {
-              console.log("hiiiiiiii");
-              setCurrentUser({ ...currentUser, list: res.data.loginUserTask });
-              console.log("/////////", res.data.loginUserTask);
-
-              const token = res.data.token;
-              console.log("token inside home", token);
-            });
-        } catch (err) {
-          console.log("saas");
-          console.log(err);
-        }
-      };
-
-      fetchData(task);
     } else {
       if (currentUser) {
         setToList(currentUser.list);
@@ -73,14 +41,35 @@ const Home = () => {
       }
     }
   }, [list]);
+  const fetchData = async (task) => {
+    try {
+      console.log(task);
+      await axios
+        .post(`http://localhost:3001/loginUserTask`, {
+          title: task.title,
+          description: task.description,
+          status: task.status,
+          email: currentUser.email,
+        })
+        .then((res) => {
+          setCurrentUser({
+            ...currentUser,
+            list: res.data.loginUserTask,
+          });
 
-  console.log(list);
+          const token = res.data.token;
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   function handleChange(e) {
+    fetchData(task);
     e.preventDefault();
     if (task.title.trim() && task.status !== "" && task.description.trim()) {
       setToList((list) => {
         const newList = [...list, task];
-        console.log("list", newList);
         return newList;
       });
       setTask({ title: "", description: "", status: "" });
@@ -111,7 +100,6 @@ const Home = () => {
   };
 
   const handleDelete = async (taskId) => {
-    console.log("del is clicked for");
     try {
       const res = await axios.post(`http://localhost:3001/taskDelete`, {
         email: currentUser.email,
@@ -178,12 +166,9 @@ const Home = () => {
                     setTask({ ...task, status: e.target.value });
                   }}
                 >
-                  <option value="default" disabled>
-                    Select Status
-                  </option>
-                  <option value="to-do">To Do</option>
-                  <option value="in-progress">In Progress</option>
-                  <option value="completed">Completed</option>
+                  <option selected value="To Do">To Do</option>
+                  <option value="In Progress">In Progress</option>
+                  <option value="Completed">Completed</option>
                 </select>
 
                 <button type="submit" className="todo-btn">
