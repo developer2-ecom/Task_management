@@ -4,6 +4,14 @@ const taskRoute=express.Router();
 
 taskRoute.post('/loginUserTask',async(req,res)=>{
     const {title, description,status,userId}=req.body;
+  
+    const filter={}
+    if (status) {
+        filter.status = status;
+    }
+    console.log(status,"status...")
+   
+
     try {
         const userId = req.user.userId; 
         console.log(userId,"userid....")
@@ -20,9 +28,11 @@ taskRoute.post('/loginUserTask',async(req,res)=>{
 
 
 taskRoute.get('/taskDisplay',async(req,res)=>{
-
+    
+  
     try {
         const userId = req.user.userId; 
+     
        const  loginUserTask= await Task.find({userId})
     //    console.log(userId)
        res.status(200).json({task: loginUserTask})
