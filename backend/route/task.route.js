@@ -4,7 +4,7 @@ const taskRoute=express.Router();
 
 taskRoute.post('/loginUserTask',async(req,res)=>{
     const {title, description,status,userId}=req.body;
-  
+  console.log(req.body)
     const filter={}
     if (status) {
         filter.status = status;
@@ -20,7 +20,8 @@ taskRoute.post('/loginUserTask',async(req,res)=>{
         console.log(loginUserTask)
         res.status(200).json({message:'Task is Created!',loginUserTask:loginUserTask})
     } catch (error) {
-        res.status(200).json({message:error})
+                res.status(400).json({message:error})
+         
     }
 
 
