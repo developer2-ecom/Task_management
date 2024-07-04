@@ -20,7 +20,7 @@ function Login() {
       setTimeout(() => {
         console.log("cookiiie", document.cookie);
       });
-      navigate("/loginUserTask");
+      navigate("/");
     } catch (err) {
       console.log(err);
     }

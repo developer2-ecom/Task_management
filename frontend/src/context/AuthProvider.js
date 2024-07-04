@@ -18,9 +18,11 @@ export const AuthContextProvider = ({ children }) => {
           
 
           setCurrentUser({
-           name: res.data.userName,
-            email: res.data.email,
+           name: res.data.user.userName,
+            email: res.data.user.email,
+            list:[]
           });
+          console.log("current user detail", currentUser)
           console.log(res.data.user)
           document.cookie = `access_token=${res.data.token};`;
           console.log("cookiiiie", document.cookie);

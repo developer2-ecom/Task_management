@@ -21,10 +21,9 @@ const Home = () => {
 
   useEffect(() => {
     console.log(list);
-
     if (list.length !== 0) {
       const fetchData = async () => {
-        console.log(currentUser);
+        console.log(".............",currentUser);
         try {
           await axios
             .post(`http://localhost:3001/loginUserTask`, {
@@ -36,6 +35,7 @@ const Home = () => {
             .then((res) => {
               console.log("hiiiiiiii")
               setCurrentUser({ ...currentUser, list: res.data.loginUserTask});
+              console.log("/////////",res.data.loginUserTask)
 
               const token = res.data.token;
               console.log("token inside home", token);
@@ -44,7 +44,9 @@ const Home = () => {
           console.log("saas");
           console.log(err);
         }
+
       };
+
 
       fetchData();
     } else {
@@ -66,12 +68,13 @@ const Home = () => {
     }
   }, [list]);
 
+  console.log(list)
   function handleChange(e) {
     e.preventDefault();
     if (task.title.trim() && task.status !== "" && task.description.trim()) {
       setToList((list) => {
         const newList = [...list, task];
-        console.log(newList);
+        console.log("list",newList);
         return newList;
       });
       setTask({ title: "", description: "",status: "" });
@@ -143,7 +146,7 @@ const Home = () => {
 
   return (
     <>
-    <h1 style={{marginTop:"200px"}}>hellooooo</h1>
+
       {isAuthenticated ? (
         <>
           <div className="outer">
@@ -171,7 +174,7 @@ const Home = () => {
                   className="todo-input"
                   id="task"
                   name="decription"
-                  placeholder="Enter your task..."
+                  placeholder="Enter description..."
                   value={task.description}
                   onChange={(e) => {
                     setTask({ ...task, description: e.target.value });
@@ -201,9 +204,8 @@ const Home = () => {
               </form>
               {task.error && <p style={{ color: "red" }}>{task.error}</p>}
               <div>
-                {Array.isArray(currentUser.list) &&
-                  currentUser.list.length > 0 &&
-                  [...currentUser.list].reverse().map((data, i) => (
+                {Array.isArray(currentUser.list) && currentUser.list.length > 0 &&
+                [ ...currentUser.list].map((data, i) => (
                     <div key={i} className="Todo">
                       <div className="TodoTask">
                         <p className="show-task">Task: {data.title}</p>
@@ -249,4 +251,5 @@ const Home = () => {
     </>
   );
 };
+
 export default Home;
