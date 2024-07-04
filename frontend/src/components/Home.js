@@ -27,12 +27,15 @@ const Home = () => {
         console.log(currentUser);
         try {
           await axios
-            .post(`http://localhost:3002/loginUserTask`, {
-              list,
+            .post(`http://localhost:3001/loginUserTask`, {
+              title: task.title,
+              description: task.description,
+              status: task.status,
               email: currentUser.email,
             })
             .then((res) => {
-              setCurrentUser({ ...currentUser, list: res.data.list });
+              console.log("hiiiiiiii")
+              setCurrentUser({ ...currentUser, list: res.data.loginUserTask});
 
               const token = res.data.token;
               console.log("token inside home", token);
@@ -65,18 +68,24 @@ const Home = () => {
 
   function handleChange(e) {
     e.preventDefault();
-    if (task.text.trim() && task.taskstatus !== "") {
+    if (task.title.trim() && task.status !== "" && task.description.trim()) {
       setToList((list) => {
-        const newList = [...list, {...task, _id:Date.now().toString()}];
+        const newList = [...list, task];
         console.log(newList);
         return newList;
       });
-      setTask({ text: "", taskstatus: "", error: "" });
+      setTask({ title: "", description: "",status: "" });
     } else {
-      if (!task.text.trim()) {
-        setTask({ ...task, error: "Enter your task" });
-      } else if (task.taskstatus === "") {
-        setTask({ ...task, error: "Enter your status for the task" });
+       if (!task.title.trim()) {
+        setTask(task)
+        setError("Enter your title for the task");
+      }else if (!task.description.trim()) {
+        setTask(task)
+        setError("Enter your description for the task");
+      }
+      else if (task.status === "") {
+        setTask(task);
+        setError("Enter your status for the task")
       }
     }
   }
@@ -85,7 +94,7 @@ const Home = () => {
   const handleUpdate = async()=>{
 
     try{
-      const res = await axios.post(`http://localhost:3001/backend/taskUpdate`, {
+      const res = await axios.post(`http://localhost:3001/taskUpdate`, {
         
       })
     }catch(err){
@@ -96,7 +105,7 @@ const Home = () => {
   const displayTask = async()=>{
 
     try{
-      const res = await axios.post(`http://localhost:3001/backend/taskDisplay`, {
+      const res = await axios.post(`http://localhost:3001/taskDisplay`, {
         
       })
     }catch(err){
@@ -107,7 +116,7 @@ const Home = () => {
  const handleDelete=async(taskId)=>{
     console.log("del is clicked for")
     try{
-      const res = await axios.post(`http://localhost:3001/backend/taskDelete`, {
+      const res = await axios.post(`http://localhost:3001/taskDelete`, {
               email: currentUser.email,
               taskId,
             })
@@ -134,6 +143,7 @@ const Home = () => {
 
   return (
     <>
+    <h1 style={{marginTop:"200px"}}>hellooooo</h1>
       {isAuthenticated ? (
         <>
           <div className="outer">
@@ -149,21 +159,32 @@ const Home = () => {
                   type="text"
                   className="todo-input"
                   id="task"
-                  name="text"
+                  name="title"
                   placeholder="Enter your task..."
-                  value={task.text}
+                  value={task.title}
                   onChange={(e) => {
-                    setTask({ ...task, text: e.target.value });
+                    setTask({ ...task, title: e.target.value });
+                  }}
+                />
+                <input
+                  type="text"
+                  className="todo-input"
+                  id="task"
+                  name="decription"
+                  placeholder="Enter your task..."
+                  value={task.description}
+                  onChange={(e) => {
+                    setTask({ ...task, description: e.target.value });
                   }}
                 />
 
                 <select
-                  id="taskstatus"
-                  name="taskstatus"
+                  id="status"
+                  name="status"
                   className="todo-btn"
                   defaultValue={"default"}
                   onChange={(e) => {
-                    setTask({ ...task, taskstatus: e.target.value });
+                    setTask({ ...task, status: e.target.value });
                   }}
                 >
                   <option value="default" disabled>
@@ -185,7 +206,7 @@ const Home = () => {
                   [...currentUser.list].reverse().map((data, i) => (
                     <div key={i} className="Todo">
                       <div className="TodoTask">
-                        <p className="show-task">Task: {data.text}</p>
+                        <p className="show-task">Task: {data.title}</p>
                         <div>
                           <FontAwesomeIcon
                             icon={faPenToSquare}
@@ -201,7 +222,7 @@ const Home = () => {
                         </div>
                       </div>
                       <div className="TodoStatus">
-                        <p className="show-status">Status: {data.taskstatus}</p>
+                        <p className="show-status">Status: {data.status}</p>
                         <div>
                           <FontAwesomeIcon
                             icon={faPenToSquare}

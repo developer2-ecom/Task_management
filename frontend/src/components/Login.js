@@ -16,11 +16,11 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await login({ email, password });
+      await login({ email, Password:password });
       setTimeout(() => {
         console.log("cookiiie", document.cookie);
       });
-      navigate("/");
+      navigate("/loginUserTask");
     } catch (err) {
       console.log(err);
     }

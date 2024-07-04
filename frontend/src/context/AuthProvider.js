@@ -9,23 +9,26 @@ export const AuthContextProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
  
   const login = async (input) => {
+    console.log(input,"authProvider..")
+
     try {
       await axios
-        .post("http://localhost:3001/backend/route/task.route")
+        .post(`http://localhost:3001/login`,input)
         .then((res) => {
           
+
           setCurrentUser({
-            name: res.data.name,
+           name: res.data.userName,
             email: res.data.email,
-            list: res.data.list,
           });
+          console.log(res.data.user)
           document.cookie = `access_token=${res.data.token};`;
           console.log("cookiiiie", document.cookie);
           console.log("response", input);
           setIsAuthenticated(true);
 
 
-          console.log("username:", res.data.name);
+          console.log("username:", res.data.userName);
           console.log("access token", res.data.token);
         });
     } catch (err) {
@@ -38,7 +41,7 @@ export const AuthContextProvider = ({ children }) => {
 
   const logout = async (req, res) => {
     try {
-      const res = await axios.post("http://localhost:3002/api/auth/logout");
+      const res = await axios.post("http://localhost:3001/logout");
       console.log(res);
       document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
       setIsAuthenticated(false);

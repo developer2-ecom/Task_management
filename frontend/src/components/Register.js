@@ -16,12 +16,12 @@ function Register() {
    
     const handleSubmit = async (event) => {
         event.preventDefault();
-        await axios.post('http://localhost:3001/registration',{name, email, password})
+        await axios.post('http://localhost:3001/registration',{userName:name, email, Password:password})
         .then(response=>{
             if(response.data.status){
                 navigate("/login");
             }
-            console.log(response)
+            console.log(response.data)
             
         }).catch(err=>{
                     console.log(err)

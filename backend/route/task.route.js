@@ -4,6 +4,7 @@ const taskRoute=express.Router();
 
 taskRoute.post('/loginUserTask',async(req,res)=>{
     const {title, description,status}=req.body;
+    console.log("title is", title)
     try {
         const loginUserTask= new Task({title,description,status})
         await loginUserTask.save()
