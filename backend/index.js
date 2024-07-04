@@ -10,7 +10,7 @@ const { auth } = require("./middleware/auth");
 APP.use(cors())
 APP.use(express.json())
 APP.use(userRouter)
-APP.use( auth,taskRoute)
+APP.use(auth,taskRoute)
 
 // const port
 

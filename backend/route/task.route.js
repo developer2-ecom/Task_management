@@ -48,17 +48,16 @@ taskRoute.patch('/taskUpdate/:id',async(req,res)=>{
 })
 
 
-taskRoute.delete('/taskDelete/:id',async(req,res)=>{
+taskRoute.patch('/taskDelete/:id',async(req,res)=>{
     const {id}=req.params;
     try {
-        const deletePost= await Task.findByIdAndDelete(id)
-        console.log(deletePost,"de3lete")
+        const deletePost= await Task.findByIdAndDelete({_id:id})
         if(!deletePost){
-        res.status(404).json({message:"Try to Delete it again!"}) 
+            res.status(404).json({message:"Try to delete again!"}) 
         }
-        res.status(200).json({message:'post is Deleted now!', deletePost:deletePost})
+        res.status(200).json({message:'post is Deleted now!', updated:updated})
     } catch (error) {
-        res.status(400).json({message:error})
+        
     }
 })
 
