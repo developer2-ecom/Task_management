@@ -3,8 +3,6 @@ const  UserSchema=mongoose.Schema({
     userName:String,
     email:String,
     Password:String,
-   
-
 },{
     versionKey:false
 })
