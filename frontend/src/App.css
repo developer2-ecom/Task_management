@@ -1,5 +1,23 @@
+
+body{
+  display:flex;
+  /* justify-content: center; */
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
 .App {
+  display: flex;
   text-align: center;
+}
+.outer{
+  width:100vw;
+  height: 100vh;
+  display:flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background: #1A1A40;
 }
 
 .App-logo {
@@ -35,4 +53,200 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.login-form{
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10%;
+  width: 35%;
+  height: 15rem;
+  background-color: #61dafb;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+.register-form{
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10%;
+  width: 35%;
+  height: 15rem;
+  background-color: #61dafb;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+.login-modal-btn{
+  z-index:2;
+}
+
+.navbar{
+  display: flex !important;
+  justify-content: flex-start;
+  width: 100vw !important;
+  position: fixed !important;
+}
+
+.footer{
+  width: 100%;
+  background-color:#61dafb;
+  position: fixed;
+  bottom: 0.5%;
+}
+
+.container{
+  position: relative !important;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0% !important;
+  width: 40% !important;
+  height: 20rem !important;
+  background-color: hsl(193, 95%, 68%);
+}
+
+.header{
+  position: absolute !important;
+  top: 0%;
+  width: 100% !important;
+  background-color: rgb(231, 219, 219);
+}
+
+.task-status{
+  position: relative !important;
+  /* width: 100% !important; */
+  padding-left: 5% !important;
+}
+.task-submit{
+  position: relative !important;
+  border: 1px solid black !important;
+  margin-left: 2rem !important;
+}
+.task-in{
+  position: relative !important;
+  width: 100% !important;
+
+}
+.form-group{
+  position: relative !important;
+  width: 100% !important;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+.listData{
+  color: black;
+  background-color: #ccddff;
+  text-align: left;
+  width: 80%;
+}
+.visible{
+  display: block;
+}
+
+.TodoForm{
+    display:flex;
+    width:100%;
+    display: flex;
+    justify-content: center;
+}
+
+
+.todo-btn{
+  background: #7e5ad7;
+  border:none;
+  color:white;
+  padding: 0.55rem;
+  cursor:pointer;
+  margin-left: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.TodoWrapper{
+  margin:0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width:100vw;
+  height:100vh;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
+
+}
+
+.todo-input{
+  width:500px;
+  border: 1px solid #7e5ad7;
+  margin-bottom: 2rem;
+  /* padding: 0.55rem; */
+}
+
+.Todo{
+  display: flex;
+}
+
+.TodoTask{
+  width:500px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #7e5ad7;
+  color: white;
+  padding:  0.55rem;
+  margin-bottom: 1.5rem;
+  border-radius: 0.25rem;
+}
+.TodoStatus{
+  width:500px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #7e5ad7;
+  color: white;
+  padding:  0.55rem;
+  margin-bottom: 1.5rem;
+  margin-left: 1rem;
+  border-radius: 0.25rem;
+}
+.show-task{
+  margin:unset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.show-status{
+  margin:unset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fa-trash{
+  margin-left: 0.5rem;
+}
+.LoginWrapper{
+  width:400px;
+  background: #7e5ad7;
+  /* margin-top: 10vh; */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
+
+}
+.login-input{
+  margin:unset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.login-label{
+  color: black;
 }

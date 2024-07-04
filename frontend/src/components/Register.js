@@ -16,7 +16,7 @@ function Register() {
    
     const handleSubmit = async (event) => {
         event.preventDefault();
-        await axios.post('http://localhost:3002/api/auth/register',{name, email, password})
+        await axios.post('http://localhost:3001/registration',{name, email, password})
         .then(response=>{
             if(response.data.status){
                 navigate("/login");
@@ -37,6 +37,7 @@ function Register() {
 
 return (
     <>
+    <div className="outer">
         <div className="LoginWrapper">
             <div>
                 <h2 style={{color:"white"}}>Register</h2>
@@ -76,6 +77,7 @@ return (
                     <p>Have an Account?<Link to="/login">Login here</Link></p>
                 </form>
             </div>
+        </div>
         </div>
     </>
 )
